@@ -8,10 +8,8 @@ const db = SQLite.openDatabase('database');
 function exec (query: string) {
   return new Promise(resolve => {
     db.transaction(tx => {
-      console.log(query);
-      tx.executeSql(query, null, data => {
-        console.log(data);
-        resolve(data);
+      tx.executeSql(query, null, (transaction, results) => {
+        resolve([results.rows._array]);
       });
     });
   });
